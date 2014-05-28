@@ -25,9 +25,13 @@ namespace {
 
     try {
         $imapProxy->processResourcesBySource($source);
-        echo 'success';
-    } catch (\Msl\ResourceProxy\Exception\PostParseUnitException $ex) {
-        echo 'error: ' . $ex->getMessage();
+        echo 'success' . PHP_EOL;
+    } catch (\Msl\ResourceProxy\Exception\PostParseException $ex) {
+        echo 'error: ' . $ex->getMessage() . PHP_EOL;
+        $errors = $ex->getErrors();
+        foreach ($errors as $error) {
+            echo $error . PHP_EOL;
+        }
     }
 }
 

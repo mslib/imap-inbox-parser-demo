@@ -21,7 +21,7 @@ namespace {
 
     $imapProxy = new \Imap\Inbox\Parser\ImapProxy();
 
-    $source = $imapProxy->getSourceByName('mslib-gmail-account');
+    /*$source = $imapProxy->getSourceByName('mslib-gmail-account');
 
     try {
         $imapProxy->processResourcesBySource($source);
@@ -31,6 +31,25 @@ namespace {
         $errors = $ex->getErrors();
         foreach ($errors as $error) {
             echo $error . PHP_EOL;
+        }
+    }*/
+
+    try {
+        $imapProxy->processResources();
+        echo 'success' . PHP_EOL;
+    } catch (\Msl\ResourceProxy\Exception\GlobalProcessException $ex) {
+        echo 'error: ' . $ex->getMessage() . PHP_EOL;
+        $errors = $ex->getErrors();
+        foreach ($errors as $error) {
+            if (is_string($error)) {
+                echo $error . PHP_EOL;
+            } else if ($error instanceof \Msl\ResourceProxy\Exception\PostParseException) {
+                echo $error->getMessage() . PHP_EOL;
+                $postParseErrors = $error->getErrors();
+                foreach ($postParseErrors as $postParseError) {
+                    echo $postParseError . PHP_EOL;
+                }
+            }
         }
     }
 }

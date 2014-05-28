@@ -1,0 +1,13 @@
+{
+    "name": "mslib/imap-inbox-parser-demo",
+    "license": "GLP v2",
+    "type": "project",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "mslib/resource-proxy": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
